@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+  <title>Test</title>
+  <meta charset="utf-8">
+</head>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+    var start = {
+         bind:function(){
+            $('#pages').off().on('click',function(){
+            location.href="/main";
+            })
+         },
+         
+    }
+
+$(document).ready(function(){
+    start.bind();
+})
+</script>
+<body>
+    <h1> Test Page </h1>
+        Test Page....
+   <input type="button" value="Main page Move" id="pages">
+</body>
+</html>

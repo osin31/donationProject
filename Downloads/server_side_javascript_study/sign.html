@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+  <title>Test</title>
+  <meta charset="utf-8">
+</head>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+
+var start = {
+
+    bind:function(){
+        $(".pages").off().on('click',function(){
+            location.href="/page";
+        });
+        $('#sign').off().on('click',function(){
+            formTest.action="/insertSign";
+            formTest.submit();
+        })
+    },
+    test:function(){
+
+    },
+    test2:function(){
+
+    }
+}
+
+$(document).ready(function(){
+alert('test ing..');
+start.bind();
+});
+
+</script>
+<body>
+    <h1>Node Test Sign</h1>
+<form name="formTest" method="post">
+   <p><input type="text" name="id"/></p> 
+   <p><input type="password" name="password"></p>
+   <input type='button' value="submit" id="sign">
+   <input type="button" value="cancel">
+   <p><input type="button" value="Test page Move" class="pages"></p>
+</form>
+</body>
+</html>
