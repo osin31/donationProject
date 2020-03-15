@@ -8,6 +8,6 @@ public class testDonationReq {
 
 	@RequestMapping("/")
 	public String testDonation() {
-		return "testData";
+		return "ㄴㄴ";
 	}
 }
