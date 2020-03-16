@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value="/donation")
 public class testDonationReq {
 
-	@GetMapping(value="/test")
+	@GetMapping(value="/main")
 	public String testDonation() {
-		return "/test";
+		return "/donationMain";
 	}
 }
