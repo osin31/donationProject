@@ -353,7 +353,7 @@ public class KakaoApiHelper {
 
         return null;
     }
-
+  
     public String urlEncodeUTF8(String s) {
         try {
             return URLEncoder.encode(s, "UTF-8");
