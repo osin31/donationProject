@@ -5,12 +5,14 @@
 $(function(){
 	
 	$(document).ready(function(){
-		var trkNm = '송주호';
 		$.ajax({
-	           method:"POST",
+	           method:'POST',
 	           url: '/donation/ajaxTestData',
-	           data: trkNm,
+	           data: {
+	        	   'trkNm' : '송주호'
+	           },
 	           success: function(result){
+	        	   alert(result);
 //				var html = '';
 //		     	   for(var j=1; j < result.excelData.length; j++){
 //			     	html+= '<div id="prdtInfo_'+j+'">';

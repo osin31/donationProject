@@ -1,10 +1,10 @@
 package com.project.donation.dao;
 
-import java.util.Map;
+import java.util.List;
 
 import com.project.donation.excelModel.ajaxTestData;
 
 public interface DonationDAO {
 
-	public Map<String, Object> selectData(ajaxTestData data) throws Exception;
+	public List<ajaxTestData> selectData(ajaxTestData data) throws Exception;
 }

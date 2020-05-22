@@ -119,8 +119,11 @@ public class testDonationReqService{
 	}
 	
 	public Map<String, Object> getTestAjax(ajaxTestData data) throws Exception{
-		Map<String ,Object> getTestAjax =dao.selectData(data);
-		
-		return getTestAjax;
+		log.info("data:>>>>>>>>>>>>>>>"+data.getTrkNm());
+		List<ajaxTestData> getTestAjax =dao.selectData(data);
+		Map<String, Object> bb = new HashMap<String, Object>();
+		bb.put("data", getTestAjax);
+		log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+bb.get("data"));
+		return bb;
 	}
 }
