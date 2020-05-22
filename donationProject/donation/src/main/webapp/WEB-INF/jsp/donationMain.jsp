@@ -19,10 +19,6 @@
 <a id="kakao-login-btn" onclick="kakaoLoginBtn()"></a>
 
 
-
-
-
-
 <script src="/static/js/donation.kakaoApi.js"></script>
 <script type='text/javascript'>
   //<![CDATA[
@@ -32,7 +28,7 @@
     Kakao.Auth.createLoginButton({
       container: '#kakao-login-btn',
       success: function(authObj) {
-        // 로그인 성공시, API를 호출합니다.
+        // 로그인 성공시, API를 호출합니다....
         Kakao.API.request({
           url: '/v2/user/me',
           success: function(res) {
@@ -48,6 +44,7 @@
       }
     });
   //]]>
+
 </script>
 
 </body>

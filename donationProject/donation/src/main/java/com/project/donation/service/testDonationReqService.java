@@ -12,10 +12,13 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.project.donation.dao.DonationDAO;
+import com.project.donation.excelModel.ajaxTestData;
 import com.project.donation.excelModel.barcodeModel;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +27,9 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class testDonationReqService{
 
+	@Autowired
+	private DonationDAO dao;
+	
 	public Map<String, Object> getUploadTest(MultipartHttpServletRequest request) throws Exception{
 		
 		log.info("Service IN------------------------------------------");
@@ -110,5 +116,11 @@ public class testDonationReqService{
         log.info("Excel Data : " + barcodeModel);
         uploadData.put("excelData", barcodeModel);
 		return uploadData;
+	}
+	
+	public Map<String, Object> getTestAjax(ajaxTestData data) throws Exception{
+		Map<String ,Object> getTestAjax =dao.selectData(data);
+		
+		return getTestAjax;
 	}
 }
