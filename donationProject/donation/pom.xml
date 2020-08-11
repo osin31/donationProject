@@ -57,6 +57,18 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 		</dependency>
+		
+		<dependency>
+		  <groupId>org.slf4j</groupId>
+		  <artifactId>slf4j-api</artifactId>
+		  <version>1.7.25</version>
+		</dependency>
+		
+		<dependency>
+ 		  <groupId>org.bgee.log4jdbc-log4j2</groupId>
+	      <artifactId>log4jdbc-log4j2-jdbc4</artifactId>
+	      <version>1.16</version>
+		</dependency>
 
 <!-- excel 처리 -->
         <dependency>
@@ -74,11 +86,12 @@
             <artifactId>poi-ooxml</artifactId>
             <version>${poi.version}</version>
         </dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
 		    <groupId>org.projectlombok</groupId>
 		    <artifactId>lombok</artifactId>
-		    <version>1.16.18</version>
-		    <scope>provided</scope>
+		    <version>1.18.12</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>

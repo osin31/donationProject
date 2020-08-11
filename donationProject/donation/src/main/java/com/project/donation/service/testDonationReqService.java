@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.DataFormatter;
@@ -12,6 +13,8 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,9 +22,12 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.project.donation.dao.DonationDAO;
 import com.project.donation.excelModel.ajaxTestData;
+import com.project.donation.excelModel.ajaxTestDatas;
 import com.project.donation.excelModel.barcodeModel;
+import com.project.donation.excelModel.locationData;
 
 import lombok.extern.slf4j.Slf4j;
+
 
 @Slf4j
 @Service
@@ -30,9 +36,12 @@ public class testDonationReqService{
 	@Autowired
 	private DonationDAO dao;
 	
+	private Logger log = LoggerFactory.getLogger(this.getClass());
+	
+	ajaxTestDatas datas = new ajaxTestDatas();
+	
 	public Map<String, Object> getUploadTest(MultipartHttpServletRequest request) throws Exception{
 		
-		log.info("Service IN------------------------------------------");
 		//TODO : 임의로 만들어놓음 수정해야함
 		Map<String ,Object> uploadData = new HashMap<String, Object>();
 		List<barcodeModel> barcodeModel = new ArrayList();
@@ -91,13 +100,13 @@ public class testDonationReqService{
                         }
                     }
                    
-                    if(columnindex == 0) {
-                    	barcodeVo.setPrdtNo(value);
-                    }else if(columnindex == 1) {
-                    	barcodeVo.setPrdtNm(value);
-                    }else {
-                    	barcodeVo.setSourceNm(value);
-                    }
+//                    if(columnindex == 0) {
+//                    	barcodeVo.setPrdtNo(value);
+//                    }else if(columnindex == 1) {
+//                    	barcodeVo.setPrdtNm(value);
+//                    }else {
+//                    	barcodeVo.setSourceNm(value);
+//                    }
                 }
                 log.info("barcodeVo >>"+ barcodeVo);
                 barcodeModel.add(barcodeVo);
@@ -118,12 +127,38 @@ public class testDonationReqService{
 		return uploadData;
 	}
 	
-	public Map<String, Object> getTestAjax(ajaxTestData data) throws Exception{
-		log.info("data:>>>>>>>>>>>>>>>"+data.getTrkNm());
-		List<ajaxTestData> getTestAjax =dao.selectData(data);
+	public Map<String, Object> getTestAjax(ajaxTestData trkNm) throws Exception{
+		
+		String trkNms = trkNm.getTrkNm();
+		List<ajaxTestData> getTestAjax =dao.selectData(trkNm);
+		List<ajaxTestDatas> getTestAjaxs =dao.selectDatas(trkNms);
+		
+		for(ajaxTestData data_s : getTestAjax){
+			getTestAjaxs.stream().filter(a -> data_s.getTrkNm().equals("강남구")).collect(Collectors.toList());
+			
+			log.info("data_log:::"+getTestAjaxs);	
+		}
+		
 		Map<String, Object> bb = new HashMap<String, Object>();
 		bb.put("data", getTestAjax);
-		log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+bb.get("data"));
 		return bb;
 	}
+	
+	public List<ajaxTestData> ajaxTest(ajaxTestData data) throws Exception{
+		
+		//Map<String , List<ajaxTestData>> newT = dao.ajaxTest(data);
+		List<ajaxTestData> newT = dao.ajaxTest(data);
+		
+//		newT = newT.stream().filter(a->a.getTrkMsg().isEmpty()).collect(Collectors.toList());
+//		newT = newT.stream().filter(a->a.getTrkMsg().equals(null)).collect(Collectors.toList());
+		return newT;
+	}
+	
+	public List<locationData> mainLocation(locationData data) throws Exception{
+		
+		List<locationData> locationRtn = dao.mainLocation(data);
+		
+		return locationRtn;
+	}
+	
 }

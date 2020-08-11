@@ -1,3 +1,4 @@
+
 package com.project.donation.excelModel;
 
 import java.util.List;
@@ -5,7 +6,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class ajaxTestData {
+public class ajaxTestDatas {
 
 	private String trkNm;
 	

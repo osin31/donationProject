@@ -26,7 +26,7 @@ import com.zaxxer.hikari.HikariDataSource;
 @EnableTransactionManagement
 public class DatabaseConfiguration {
 
-	 @Autowired
+	 	@Autowired
 	    private ApplicationContext applicationContext;
 	 
 	    //히카리라는 DB 커넥션 풀 라이브러리를 사용해요

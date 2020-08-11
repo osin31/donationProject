@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.donation.dao.DonationDAO">
+ 
+    <select id="selectData" parameterType="com.project.donation.excelModel.ajaxTestData"  resultType="com.project.donation.excelModel.ajaxTestData">
+		SELECT B.TRK_CNT AS trkCnt
+			  ,B.MONTH AS month
+			  ,B.DAY AS day
+			  ,B.TRK_GN AS trkGn
+			  ,B.TRK_NUM AS trkNum
+			  ,B.TRK_NM AS trkNm
+			  ,B.TRK_ADDR AS trkAddr
+			  ,B.TRK_MSG AS trkMsg
+			  ,COUNT(B.TRK_NM) OVER(PARTITION BY B.TRK_NM) AS totalCount
+		 FROM (
+		 		SELECT ROW_NUMBER() OVER(PARTITION BY TRK_NM ORDER BY A.TRK_NM) TRK_CNT
+		 			  ,A.* FROM(
+		 			  			SELECT SUBSTR(TRK_DTM,3,2) AS MONTH
+		 			  				  ,SUBSTR(TRK_DTM,5,6) AS DAY
+		 			  				  ,DECODE(TRK_GN,'A','새벽','저녁') AS TRK_GN
+		 			  				  ,TRK_NUM
+		 			  				  ,TRK_NM
+		 			  				  ,TRK_ADDR
+		 			  				  ,TRK_MSG
+								 FROM  PKTRACKING
+		 			  ) A
+		 ) B
+		 <!-- WHERE B.TRK_NM = #{trkNm,jdbcType=VARCHAR} -->
+    </select>
+    
+    <select id="selectDatas" parameterType="java.lang.String"  resultType="com.project.donation.excelModel.ajaxTestDatas">
+		SELECT B.TRK_CNT AS trkCnt
+			  ,B.MONTH AS month
+			  ,B.DAY AS day
+			  ,B.TRK_GN AS trkGn
+			  ,B.TRK_NUM AS trkNum
+			  ,B.TRK_NM AS trkNm
+			  ,B.TRK_ADDR AS trkAddr
+			  ,B.TRK_MSG AS trkMsg
+			  ,COUNT(B.TRK_NM) OVER(PARTITION BY B.TRK_NM) AS totalCount
+		 FROM (
+		 		SELECT ROW_NUMBER() OVER(PARTITION BY TRK_NM ORDER BY A.TRK_NM) TRK_CNT
+		 			  ,A.* FROM(
+		 			  			SELECT SUBSTR(TRK_DTM,3,2) AS MONTH
+		 			  				  ,SUBSTR(TRK_DTM,5,6) AS DAY
+		 			  				  ,DECODE(TRK_GN,'A','새벽','저녁') AS TRK_GN
+		 			  				  ,TRK_NUM
+		 			  				  ,TRK_NM
+		 			  				  ,TRK_ADDR
+		 			  				  ,TRK_MSG
+								 FROM  PKTRACKING
+		 			  ) A
+		 ) B
+		 WHERE B.TRK_NM = #{trkNm,jdbcType=VARCHAR}
+    </select>
+    
+    <select id="ajaxTest" parameterType="com.project.donation.excelModel.ajaxTestData"  resultType="com.project.donation.excelModel.ajaxTestData">
+		SELECT B.TRK_CNT AS trkCnt
+			  ,B.MONTH AS month
+			  ,B.DAY AS day
+			  ,B.TRK_GN AS trkGn
+			  ,B.TRK_NUM AS trkNum
+			  ,B.TRK_NM AS trkNm
+			  ,B.TRK_ADDR AS trkAddr
+			  ,B.TRK_MSG AS trkMsg
+			  ,COUNT(B.TRK_NM) OVER(PARTITION BY B.TRK_NM) AS totalCount
+		 FROM (
+		 		SELECT ROW_NUMBER() OVER(PARTITION BY TRK_NM ORDER BY A.TRK_NM) TRK_CNT
+		 			  ,A.* FROM(
+		 			  			SELECT SUBSTR(TRK_DTM,3,2) AS MONTH
+		 			  				  ,SUBSTR(TRK_DTM,5,6) AS DAY
+		 			  				  ,DECODE(TRK_GN,'A','새벽','저녁') AS TRK_GN
+		 			  				  ,TRK_NUM
+		 			  				  ,TRK_NM
+		 			  				  ,TRK_ADDR
+		 			  				  ,TRK_MSG
+								 FROM  PKTRACKING
+		 			  ) A
+		 ) B
+		 WHERE B.TRK_NM = #{trkNm,jdbcType=VARCHAR}
+    </select>
+    
+     <select id="mainLocation" parameterType="com.project.donation.excelModel.locationData"  resultType="com.project.donation.excelModel.locationData">
+		SELECT USER_ID AS userId
+		    ,  USER_NAME AS userName
+		    ,  LOCATION AS location
+		    ,  LOCATION_TITLE AS locationTitle
+		    ,  LOCATION_CONTENT AS locationContent
+		    ,  LOCATION_GRADE AS locationGrade
+  		 FROM MAPLOCATION;
+    </select>
+</mapper>
