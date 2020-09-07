@@ -2,6 +2,7 @@ package com.project.donation.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.IntSummaryStatistics;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,7 @@ import com.project.donation.excelModel.ajaxTestData;
 import com.project.donation.excelModel.ajaxTestDatas;
 import com.project.donation.excelModel.barcodeModel;
 import com.project.donation.excelModel.locationData;
+import com.project.donation.excelModel.pagination;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -166,9 +168,22 @@ public class testDonationReqService{
 		
 //		String trkNms = trkNm.getTrkNm();
 		List<ajaxTestData> getTestAjax =dao.selectData(trkNm);
-		log.info("getTestAjax : >>" + getTestAjax);
+		
+		IntSummaryStatistics totalCount = getTestAjax.stream().mapToInt(ajaxTestData::getTotalCount).summaryStatistics();
+		int totalCnt = (int) totalCount.getCount();
+		log.info("getTestAjax : >>" + totalCnt);
+		getTestAjax.get(0).setTotalCount(totalCnt);
 		Map<String, Object> bb = new HashMap<String, Object>();
-		bb.put("data", getTestAjax);
+		Map<String, Object> aa = new HashMap<String, Object>();
+		pagination pagination = new pagination();
+		pagination.setTotalCnt(totalCnt);
+		pagination.setPage(1);
+		
+		
+		aa.put("contents", getTestAjax);
+		aa.put("pagination", pagination);	
+		bb.put("data", aa);
+		bb.put("result", true);
 		return bb;
 	}
 	

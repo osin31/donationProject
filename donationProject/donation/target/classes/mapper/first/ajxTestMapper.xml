@@ -3,16 +3,15 @@
 <mapper namespace="com.project.donation.dao.DonationDAO">
  
     <select id="selectData" parameterType="com.project.donation.excelModel.ajaxTestData"  resultType="com.project.donation.excelModel.ajaxTestData">
-		SELECT B.TRK_CNT AS trkCnt
+		SELECT B.TRK_SEQ AS trkCnt
 			  ,B.TRK_GN AS trkGn
 			  ,B.TRK_NUM AS trkNum
 			  ,B.TRK_NM AS trkNm
 			  ,B.TRK_ADDR AS trkAddr
 			  ,B.TRK_MSG AS trkMsg
 		 FROM (
-		 		SELECT ROW_NUMBER() OVER(PARTITION BY TRK_NM ORDER BY A.TRK_NM) TRK_CNT
-		 			  ,A.* FROM(
-		 			  			SELECT SUBSTR(TRK_DTM,3,2) AS MONTH
+		 			  			SELECT TRK_SEQ
+		 			  			      ,SUBSTR(TRK_DTM,3,2) AS MONTH
 		 			  				  ,SUBSTR(TRK_DTM,5,6) AS DAY
 		 			  				  ,DECODE(TRK_GN,'A','새벽','저녁') AS TRK_GN
 		 			  				  ,TRK_NUM
@@ -20,7 +19,6 @@
 		 			  				  ,TRK_ADDR
 		 			  				  ,TRK_MSG
 								 FROM  PKTRACKING
-		 			  ) A
 		 ) B
 		 <!-- WHERE B.TRK_NM = #{trkNm,jdbcType=VARCHAR} -->
     </select>

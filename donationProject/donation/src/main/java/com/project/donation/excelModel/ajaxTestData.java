@@ -7,6 +7,8 @@ import lombok.Data;
 @Data
 public class ajaxTestData {
 
+	private int totalCount;
+	
 	private String trkNm;
 	
 	private List<ajaxTestData> test;
@@ -30,4 +32,6 @@ public class ajaxTestData {
 	private String trkAddr;
 	
 	private String trkMsg;
+	
+	private String page;
 }
