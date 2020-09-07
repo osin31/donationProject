@@ -4,14 +4,11 @@
  
     <select id="selectData" parameterType="com.project.donation.excelModel.ajaxTestData"  resultType="com.project.donation.excelModel.ajaxTestData">
 		SELECT B.TRK_CNT AS trkCnt
-			  ,B.MONTH AS month
-			  ,B.DAY AS day
 			  ,B.TRK_GN AS trkGn
 			  ,B.TRK_NUM AS trkNum
 			  ,B.TRK_NM AS trkNm
 			  ,B.TRK_ADDR AS trkAddr
 			  ,B.TRK_MSG AS trkMsg
-			  ,COUNT(B.TRK_NM) OVER(PARTITION BY B.TRK_NM) AS totalCount
 		 FROM (
 		 		SELECT ROW_NUMBER() OVER(PARTITION BY TRK_NM ORDER BY A.TRK_NM) TRK_CNT
 		 			  ,A.* FROM(

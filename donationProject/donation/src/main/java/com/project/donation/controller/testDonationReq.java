@@ -7,6 +7,8 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mobile.device.Device;
+import org.springframework.mobile.device.DeviceUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +32,18 @@ public class testDonationReq {
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 
+//	@GetMapping(value = "/mobile")
+//	public void deviceCheck(Device device) {
+//		
+//		if(device.isMobile()) {
+//			log.info("Mobile User!");
+//		}else if(device.isTablet()) {
+//			log.info("Tablet User!");
+//		}else {
+//			log.info("desktop User!");
+//		}
+//	}
+	
 	@GetMapping(value = "/excelTest")
 	public String testCreateUpload() {
 		return "/test";
@@ -79,6 +93,16 @@ public class testDonationReq {
 		
 		newT.put("clen", newS);
 		return newT;
+	}
+	
+	/* 2020년 08월 31일 <<<<< TOAST GRID >>>>*/
+	@PostMapping(value = "/toastGridTest")
+	@ResponseBody
+	public Map<String, Object> toastGridTest(ajaxTestData data) throws Exception {
+		
+		Map<String, Object> retrn = service.toastGridTest(data);
+
+		return retrn;
 	}
 
 }

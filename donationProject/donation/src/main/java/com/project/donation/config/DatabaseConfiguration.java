@@ -1,5 +1,7 @@
 package com.project.donation.config;
 
+import java.util.List;
+
 import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -12,7 +14,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.mobile.device.DeviceHandlerMethodArgumentResolver;
+import org.springframework.mobile.device.DeviceResolverHandlerInterceptor;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -69,6 +74,30 @@ public class DatabaseConfiguration {
 	    public org.apache.ibatis.session.Configuration mybatisConfig() {
 	        return new org.apache.ibatis.session.Configuration();
 	    }
+	    
+	    /**
+		 * 접속 디바이스(mobile,tablet,pc) 판단하는 핸들러 등록
+		 * 
+		 * @return
+		 */
+		@Bean
+		public DeviceResolverHandlerInterceptor deviceResolverHandlerInterceptor() {
+			return new DeviceResolverHandlerInterceptor();
+		}
+
+		/**
+		 * 접속 디바이스(mobile,tablet,pc) 판단하는 객체를 사용할 수 있도 Controller argument에 등록.
+		 * 
+		 * @return
+		 */
+		@Bean
+		public DeviceHandlerMethodArgumentResolver deviceHandlerMethodArgumentResolver() {
+			return new DeviceHandlerMethodArgumentResolver();
+		}
+		
+		public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+			argumentResolvers.add(deviceHandlerMethodArgumentResolver());
+		}
 
 
 }

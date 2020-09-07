@@ -161,4 +161,15 @@ public class testDonationReqService{
 		return locationRtn;
 	}
 	
+	//2020년 8월31일 TOAST GRID 
+	public Map<String, Object> toastGridTest(ajaxTestData trkNm) throws Exception{
+		
+//		String trkNms = trkNm.getTrkNm();
+		List<ajaxTestData> getTestAjax =dao.selectData(trkNm);
+		log.info("getTestAjax : >>" + getTestAjax);
+		Map<String, Object> bb = new HashMap<String, Object>();
+		bb.put("data", getTestAjax);
+		return bb;
+	}
+	
 }
